@@ -16,7 +16,9 @@ namespace BTapNhom
         public SqlDataAdapter ada;
         public void ConnectToDatabase()
         {
-            string sql1 = ConfigurationManager.ConnectionStrings["QLHS_DB"].ConnectionString;
+            //string sql1 = ConfigurationManager.ConnectionStrings["QLHS_DB"].ConnectionString;
+            string sql1 = "Data Source = TRUNG2702\\MSSQLSERVER01; Initial Catalog = QLHS_DB; Integrated Security = True";
+            
             cnn = new SqlConnection(sql1);
             cnn.Open();
         }
