@@ -47,30 +47,36 @@ namespace BTapNhom
             string email = txtEmail.Text;
             string soDienThoai = txtSoDienThoai.Text;
             string matkhauMoi = txtMatKhauMoi.Text;
+
             int vaiTro;
             int maTK;
+
+            // Lấy thông tin tài khoản
             DataTable dt = new DataTable();
             string sql = "SELECT * FROM TAIKHOAN WHERE TenDangNhap='" + tenDangNhap + "'";
             dt = kn.GetData(sql);
+
             if (dt.Rows.Count > 0)
             {
                 vaiTro = Convert.ToInt32(dt.Rows[0]["MaVaiTro"]);
                 maTK = Convert.ToInt32(dt.Rows[0]["MaTK"]);
-                //MessageBox.Show("Mã vai trò là: " + vaiTro);
+                MessageBox.Show("Mã vai trò là: " + vaiTro);
+
+                // =============================
+                // ADMIN
+                // =============================
                 if (vaiTro == 1)
                 {
-                    // Chọc vào bảng admin
-                    string sqlAdmin = "SELECT * FROM admin WHERE MaTK='" + maTK + "'";
-                    DataTable dtAdmin = new DataTable();
-                    dtAdmin = kn.GetData(sqlAdmin);
+                    string sqlAdmin = "SELECT * FROM ADMIN WHERE MaTK='" + maTK + "'";
+                    DataTable dtAdmin = kn.GetData(sqlAdmin);
                     if (dtAdmin.Rows.Count > 0)
                     {
                         string emailDB = dtAdmin.Rows[0]["Email"].ToString();
                         string sdtDB = dtAdmin.Rows[0]["SDT"].ToString();
+
                         if (emailDB == email && sdtDB == soDienThoai)
                         {
-                            // Cập nhật mật khẩu mới
-                            string sqlUpdate = "UPDATE TAIKHOAN SET MATKHAU='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
+                            string sqlUpdate = "UPDATE TAIKHOAN SET MatKhau='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
                             kn.Execute(sqlUpdate);
                             MessageBox.Show("Cập nhật mật khẩu thành công!");
                         }
@@ -80,100 +86,89 @@ namespace BTapNhom
                         }
                     }
                 }
+
+                // =============================
+                // GIÁO VIÊN
+                // =============================
                 else if (vaiTro == 2)
                 {
-                    // Chọc vào bảng giáo viên
-                    vaiTro = Convert.ToInt32(dt.Rows[0]["MaVaiTro"]);
-                    maTK = Convert.ToInt32(dt.Rows[0]["MaTK"]);
-                    //MessageBox.Show("Mã vai trò là: " + vaiTro);
-                    if (vaiTro == 1)
+                    string sqlGV = "SELECT * FROM GIAOVIEN WHERE MaTK='" + maTK + "'";
+                    DataTable dtGV = kn.GetData(sqlGV);
+                    if (dtGV.Rows.Count > 0)
                     {
-                        // Chọc vào bảng admin
-                        string sqlAdmin = "SELECT * FROM GIAOVIEN WHERE MaTK='" + maTK + "'";
-                        DataTable dtAdmin = new DataTable();
-                        dtAdmin = kn.GetData(sqlAdmin);
-                        if (dtAdmin.Rows.Count > 0)
+                        string emailDB = dtGV.Rows[0]["Email"].ToString();
+                        string sdtDB = dtGV.Rows[0]["SDT"].ToString();
+
+                        if (emailDB == email && sdtDB == soDienThoai)
                         {
-                            string emailDB = dtAdmin.Rows[0]["Email"].ToString();
-                            string sdtDB = dtAdmin.Rows[0]["SDT"].ToString();
-                            if (emailDB == email && sdtDB == soDienThoai)
-                            {
-                                // Cập nhật mật khẩu mới
-                                string sqlUpdate = "UPDATE TAIKHOAN SET MATKHAU='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
-                                kn.Execute(sqlUpdate);
-                                MessageBox.Show("Cập nhật mật khẩu thành công!");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Email hoặc số điện thoại không đúng!");
-                            }
-                        }
-                    }
-                    else if (vaiTro == 3)
-                    {
-                        // Chọc vào bảng phụ huynh
-                        vaiTro = Convert.ToInt32(dt.Rows[0]["MaVaiTro"]);
-                        maTK = Convert.ToInt32(dt.Rows[0]["MaTK"]);
-                        //MessageBox.Show("Mã vai trò là: " + vaiTro);
-                        if (vaiTro == 1)
-                        {
-                            // Chọc vào bảng admin
-                            string sqlAdmin = "SELECT * FROM PHUHUYNH WHERE MaTK='" + maTK + "'";
-                            DataTable dtAdmin = new DataTable();
-                            dtAdmin = kn.GetData(sqlAdmin);
-                            if (dtAdmin.Rows.Count > 0)
-                            {
-                                string emailDB = dtAdmin.Rows[0]["Email"].ToString();
-                                string sdtDB = dtAdmin.Rows[0]["SDT"].ToString();
-                                if (emailDB == email && sdtDB == soDienThoai)
-                                {
-                                    // Cập nhật mật khẩu mới
-                                    string sqlUpdate = "UPDATE TAIKHOAN SET MATKHAU='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
-                                    kn.Execute(sqlUpdate);
-                                    MessageBox.Show("Cập nhật mật khẩu thành công!");
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Email hoặc số điện thoại không đúng!");
-                                }
-                            }
+                            string sqlUpdate = "UPDATE TAIKHOAN SET MatKhau='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
+                            kn.Execute(sqlUpdate);
+                            MessageBox.Show("Cập nhật mật khẩu thành công!");
                         }
                         else
                         {
-                            // Chọc vào bảng học sinh
-                            vaiTro = Convert.ToInt32(dt.Rows[0]["MaVaiTro"]);
-                            maTK = Convert.ToInt32(dt.Rows[0]["MaTK"]);
-                            //MessageBox.Show("Mã vai trò là: " + vaiTro);
-                            if (vaiTro == 1)
-                            {
-                                // Chọc vào bảng admin
-                                string sqlAdmin = "SELECT * FROM HOCSINH WHERE MaTK='" + maTK + "'";
-                                DataTable dtAdmin = new DataTable();
-                                dtAdmin = kn.GetData(sqlAdmin);
-                                if (dtAdmin.Rows.Count > 0)
-                                {
-                                    string emailDB = dtAdmin.Rows[0]["Email"].ToString();
-                                    string sdtDB = dtAdmin.Rows[0]["SDT"].ToString();
-                                    if (emailDB == email && sdtDB == soDienThoai)
-                                    {
-                                        // Cập nhật mật khẩu mới
-                                        string sqlUpdate = "UPDATE TAIKHOAN SET MATKHAU='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
-                                        kn.Execute(sqlUpdate);
-                                        MessageBox.Show("Cập nhật mật khẩu thành công!");
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Email hoặc số điện thoại không đúng!");
-                                    }
-                                }
-                            }
+                            MessageBox.Show("Email hoặc số điện thoại không đúng!");
                         }
                     }
-                    else
+                }
+
+                // =============================
+                // PHỤ HUYNH
+                // =============================
+                else if (vaiTro == 3)
+                {
+                    string sqlPH = "SELECT * FROM PHUHUYNH WHERE MaTK='" + maTK + "'";
+                    DataTable dtPH = kn.GetData(sqlPH);
+                    if (dtPH.Rows.Count > 0)
                     {
-                        MessageBox.Show("Không tìm thấy tài khoản!");
+                        string emailDB = dtPH.Rows[0]["Email"].ToString();
+                        string sdtDB = dtPH.Rows[0]["SDT"].ToString();
+
+                        if (emailDB == email && sdtDB == soDienThoai)
+                        {
+                            string sqlUpdate = "UPDATE TAIKHOAN SET MatKhau='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
+                            kn.Execute(sqlUpdate);
+                            MessageBox.Show("Cập nhật mật khẩu thành công!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Email hoặc số điện thoại không đúng!");
+                        }
                     }
                 }
+
+                // =============================
+                // HỌC SINH
+                // =============================
+                else if (vaiTro == 4)
+                {
+                    string sqlHS = "SELECT * FROM HOCSINH WHERE MaTK='" + maTK + "'";
+                    DataTable dtHS = kn.GetData(sqlHS);
+                    if (dtHS.Rows.Count > 0)
+                    {
+                        string emailDB = dtHS.Rows[0]["Email"].ToString();
+                        string sdtDB = dtHS.Rows[0]["SDT"].ToString();
+
+                        if (emailDB == email && sdtDB == soDienThoai)
+                        {
+                            string sqlUpdate = "UPDATE TAIKHOAN SET MatKhau='" + matkhauMoi + "' WHERE MaTK='" + maTK + "'";
+                            kn.Execute(sqlUpdate);
+                            MessageBox.Show("Cập nhật mật khẩu thành công!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Email hoặc số điện thoại không đúng!");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy vai trò phù hợp!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy tài khoản!");
             }
         }
     }
