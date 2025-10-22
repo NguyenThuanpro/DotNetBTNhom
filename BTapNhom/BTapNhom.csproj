@@ -143,6 +143,9 @@
     <EmbeddedResource Include="FrmClass.resx">
       <DependentUpon>FrmClass.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmForgotPassword.resx">
+      <DependentUpon>FrmForgotPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>

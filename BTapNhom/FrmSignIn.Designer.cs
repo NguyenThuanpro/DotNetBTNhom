@@ -104,6 +104,7 @@
             this.btnQuenMatKhau.TabIndex = 2;
             this.btnQuenMatKhau.Text = "Quên mật khẩu";
             this.btnQuenMatKhau.UseVisualStyleBackColor = true;
+            this.btnQuenMatKhau.Click += new System.EventHandler(this.btnQuenMatKhau_Click);
             // 
             // FrmSignIn
             // 

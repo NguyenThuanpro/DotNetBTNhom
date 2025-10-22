@@ -76,5 +76,12 @@ namespace BTapNhom
         {
 
         }
+
+        private void btnQuenMatKhau_Click(object sender, EventArgs e)
+        {
+            FrmForgotPassword
+                frm = new FrmForgotPassword();
+            frm.Show();
+        }
     }
 }
